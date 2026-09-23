@@ -4,14 +4,13 @@ import time
 import platform
 
 
-
-
 def clear():
     if platform.system() == "Windows":
         os.system('cls')
     else:
         os.system('clear')
     
+
 
 def info():
     ses = platform.system()
@@ -31,20 +30,14 @@ def info():
 
 
 def cwrds():
-   
     while True:
         try:
             user_input = input("Enter the words, that you would like to count: ")
-
             search_words = [word.strip() for word in user_input.split(',') if word.strip()] # out of "water, print, lower" becomes: ["water", "print", "lower"] and search word is a word stripped out of the list (with the help of: for word in ......)
-
             word_counts = {word: 0 for word in search_words} # dictionary to count each word | looks like: {"water": 0, "print": 0, "lower": 0}
 
             clear()
             path = input("Enter the name of your file: ")
-
-          
-        
 
             with open(path, 'r') as file: 
                 for line in file: #returns lines
@@ -63,11 +56,8 @@ def cwrds():
 
                 
                     
-
-                    
             choice2 = input("\nWould you like to count again? (y/n): ").lower()
             if choice2 == "y":
-                
                 continue
             else:
                 print("Goodbye!")
