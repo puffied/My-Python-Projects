@@ -1,15 +1,4 @@
 
-
-
-#NEEED: email bomber (deepseek)
-
-
-
-
-
-
-
-
 import json
 import getpass
 import time
@@ -43,13 +32,13 @@ RESET = "\033[0m"
 
 
 
-DATA_FILE = "PUFFYpw.json" #file to save the pw
+DATA_FILE = "PUFFYpw.json" 
 
 VENDOR_CACHE = {} # cache to save API calls
 api_lock = threading.Lock() # Thread lock to ensure thread-safe API access during multi threaded sweeps
 
 
-#for getHash()
+#hash selection for getHash()
 HASH_FUNCTIONS = {
     "1": ("SHA-256", hashlib.sha256),
     "2": ("SHA-512", hashlib.sha512),
@@ -65,7 +54,7 @@ HASH_FUNCTIONS = {
 
          
 
-#for portSCAN()
+#ports for portSCAN()
 ports = {
     21: "FTP - File Transfer Protocol",
     23: "Telnet - Remote Access Encrypted",
@@ -86,11 +75,6 @@ ports = {
 
 
 
-    
-
-
-
-
 
 def clear_screen():
     if platform.system() == "Windows":
@@ -103,7 +87,37 @@ def countdown(seconds=5):
     for i in range(seconds, 0, -1):
         print(f"\r[*] Continuing in: {i} ", end="", flush=True)
         time.sleep(1)
-    
+
+
+
+def portScanAnim(target):
+    for _ in range(3):
+        for dots in [".", "..", "..."]:
+            sys.stdout.write(f"\r[*] Preparing to scan {target} {dots}        ")
+            sys.stdout.flush()
+            time.sleep(0.4)
+           
+
+
+def netSweepAnim(network):
+    for _ in range(3):
+        for dots in [".", "..", "..."]:
+            sys.stdout.write(f"\r[*] Preparing to sweep {network} {dots}      ")
+            sys.stdout.flush()
+            time.sleep(0.4)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 def password():
     if os.path.exists(DATA_FILE):
@@ -115,7 +129,7 @@ def password():
             hash_object = hashlib.sha256(text_bytes).hexdigest()
 
 
-            #calls the save func and the hash to save on the harddrive
+            #calls the save func and saves hash
             save_user_data(save_password, hash_object)
 
             print("Password saved! Redirecting to Log-in...")
@@ -124,7 +138,7 @@ def password():
             login()
 
 
-def save_user_data(password, password_hash): #defines the function along with 2 values
+def save_user_data(password, password_hash):
     try:
         password = "encrypted!"
         data = {"password": password, "hash": password_hash}
@@ -224,7 +238,7 @@ def getVendor(mac): # fetches hardware vendor for a given mac address via online
            time.sleep(1.5)
         
            url = f"https://api.macvendors.com/{mac}"
-           # Send User-Agent header to prevent anti bot blocking
+           # Send User Agent header to prevent anti bot blocking
            req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)'})
            response = urllib.request.urlopen(req, timeout=3)
            vendor_name = response.read().decode().strip()
@@ -238,6 +252,8 @@ def getVendor(mac): # fetches hardware vendor for a given mac address via online
        except:
            pass
        return "[!] Unknown Vendor"
+
+
 
 
 def getMac(ip): #reads the mac address from the local cache (in here linux ARP cache with 'ip neigh')
@@ -254,21 +270,8 @@ def getMac(ip): #reads the mac address from the local cache (in here linux ARP c
         pass
     return "Unknown MAC"
 
-def portScanAnim(target):
-    for _ in range(3):
-        for dots in [".", "..", "..."]:
-            sys.stdout.write(f"\r[*] Preparing to scan {target} {dots}        ")
-            sys.stdout.flush()
-            time.sleep(0.4)
-           
 
 
-def netSweepAnim(network):
-    for _ in range(3):
-        for dots in [".", "..", "..."]:
-            sys.stdout.write(f"\r[*] Preparing to sweep {network} {dots}      ")
-            sys.stdout.flush()
-            time.sleep(0.4)
 
 
 def banner_grabber(target, port): # connects to an open port and extracts software details known as banners 
@@ -356,6 +359,11 @@ def portSCAN():
     save_results(scan_results, f"Port Scan for {target}")
 
 
+
+
+
+
+
 def fast_sweep(ip): #pings an ip, if active resolves hostname, mac and vendor metadata
     response = os.system(f"ping -c 1 -W 1 {ip} > /dev/null 2>&1") # '> /dev/null 2>&1' silences console output from the ping command
     if response == 0:
@@ -391,6 +399,12 @@ def netSWEEP(): # sweeps an entire subnet from 1-254 for active hosts using mult
 
     print(f"{GREEN}[+] Sweep finished!{RESET}")
     save_results(sweep_results, f"Network Sweep for {network}x")
+
+
+
+
+
+
 
 
 def geoTRACK(): # gets geolocation and isp data for a public ip address
@@ -430,6 +444,8 @@ def geoTRACK(): # gets geolocation and isp data for a public ip address
                 print(f"{RED}[!] Connection error: {e}{RESET}")
     print(f"\n[+] Geolocation track for: {tip} finished.")
     save_results(track_results, f"Geomap results for: {tip}")
+
+
 
 
 
@@ -504,36 +520,6 @@ def hashCrack():
 
 
 
-
-    
-    
-        
-
-def save_results(data_list,scan_type):
-    if not data_list:
-        print(f"\n{RED}[-] No data to save. ")
-        time.sleep(4)
-        print("\n[*] Continuing ...")
-        clear_screen()
-        return
-    
-    choice = input("\n[?] Save results? (Y/n): ").lower()
-    if choice == "n":
-        clear_screen()
-    if choice == "y":
-        filename = "tool_report.txt"
-        try:
-            with open(filename, "a", encoding="utf-8") as file:
-                file.write(f"\n=== {scan_type.upper()} REPORT ({time.strftime('%Y-%m-%d %H:%M:%S')}) ===\n")
-                for line in data_list:
-                    file.write(line + "\n")
-            print(f"Saved to {filename}")
-        except Exception as e:
-            print(f"{RED}[!] Error saving file: {e}{RESET}")
-
-
-
-
 def pwgen():
     print(f"\n{YELLOW}PUFFY GENERATOR{RESET}")
 
@@ -588,6 +574,11 @@ def pwgen():
 
 
 
+
+
+
+
+
 def agame():
     print(f"\n{GREEN}Arrow Prediction game{RESET}, {RED}where will the arrow go?{RESET}\n♯type 3 anytime to exit♯\n")
     directions = ["r", "l", "f"]
@@ -627,6 +618,45 @@ def agame():
             
         print("-" * 50)  
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+    
+        
+
+def save_results(data_list,scan_type):
+    if not data_list:
+        print(f"\n{RED}[-] No data to save. ")
+        time.sleep(4)
+        print("\n[*] Continuing ...")
+        clear_screen()
+        return
+    
+    choice = input("\n[?] Save results? (Y/n): ").lower()
+    if choice == "n":
+        clear_screen()
+    if choice == "y":
+        filename = "tool_report.txt"
+        try:
+            with open(filename, "a", encoding="utf-8") as file:
+                file.write(f"\n=== {scan_type.upper()} REPORT ({time.strftime('%Y-%m-%d %H:%M:%S')}) ===\n")
+                for line in data_list:
+                    file.write(line + "\n")
+            print(f"Saved to {filename}")
+        except Exception as e:
+            print(f"{RED}[!] Error saving file: {e}{RESET}")
 
  
         
