@@ -110,7 +110,7 @@ randomWords = [
 
 
 def countdown():
-   # uchoice = int(input("Enter how many seconds you need (7 is the max): "))
+   # uchoice = int(input("Enter how many seconds you need (7 is the max): ")) | (scrapped) custom countdown
     for num in range(1, 5): #uchoice
         sys.stdout.write(f"\rGet ready! {num}")
         sys.stdout.flush()
