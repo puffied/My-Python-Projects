@@ -107,7 +107,7 @@ def masterPassword():
             hash_object = hashlib.sha256(text_bytes).hexdigest()
 
 
-            #calls the save func and the hash to save on the harddrive
+            #calls the save func and the hash to save it
             save_user_data(save_password, hash_object)
 
             print("Master Password saved! Redirecting to Log-in...")
@@ -124,8 +124,7 @@ def masterPassword():
 
 def save_user_data(password, password_hash): #defines the function along with 2 values
     try:
-        # could add "password": encrypted! for example but scrapped because of confusion
-        data = {"hash": password_hash}
+        data = {"hash": password_hash} # could add "password": encrypted! for example but scrapped because of confusion
         with open(DATA_FILE, "w", encoding="utf-8") as file:
             json.dump(data, file, indent=4) #transforms the dictionary 'data' into JSON-text, writes it into the file 'f' and sets the indent to a comfortable reading format
     except Exception as e:
