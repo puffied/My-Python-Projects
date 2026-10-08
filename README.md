@@ -145,10 +145,10 @@ python3 memoryTest.py
 ## Difficulty
 | Level | Words |
 |-------|-------|
-| Easy      3 
-| Medium    5 
-| Hard      6 
-| Hardcore  9 
+| Easy      3   |
+| Medium    5   |
+| Hard      6   |
+| Hardcore  9   |
 
 =========================================================================================================
 
