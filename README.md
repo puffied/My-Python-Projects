@@ -24,6 +24,52 @@ python3 createHash.py
 
 =========================================================================================================
 
+# MULTI CONVERTER
+
+A simple command-line tool that converts currencies and units.
+
+## Features
+- **Currency conversion** between 170+ world currencies using live exchange rates
+- **Unit conversion** for kg ↔ lbs and m ↔ ft
+- **HELP menu** to search currencies by their full name
+- Real-time rates fetched from the free [open.er-api.com](https://open.er-api.com) API
+- Clean, minimal terminal UI with colored output
+- Ctrl+C exit handling from anywhere
+
+## What is a Currency Converter?
+A currency converter uses live exchange rates to convert an amount from one currency into another. It works by:
+- **Fetching the current rate** for a base currency via an API
+- **Multiplying your amount** by the target currency's rate
+- **Displaying the result** rounded to 2 decimal places
+
+Exchange rates change constantly based on global markets, so every request pulls the latest data.
+
+## Supported Conversions
+
+**Currencies:** 170+ codes including EUR, USD, GBP, JPY, CNY, and more.
+
+**Units:**
+- kg → lbs
+- lbs → kg
+- m → ft
+- ft → m
+
+## Usage
+
+```bash
+pip install requests
+python3 multiConverter.py
+```
+
+
+## Notes
+
+- Uses the free tier of [open.er-api.com](https://open.er-api.com) — no API key required
+- Requires an internet connection for currency conversion
+- Unit conversion works offline
+
+=========================================================================================================
+
 # WORD COUNTER
 
 A small utility that counts how often specific words appear in a text file.
