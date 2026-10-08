@@ -18,9 +18,12 @@ SHA-256 is a cryptographic hash function that turns any input into a **fixed 64-
 - **Deterministic** — the same input always produces the same hash
 - **Collision-resistant** — extremely unlikely for two inputs to produce the same hash
 
+
 ## Usage
-terminal:
+
+```bash
 python3 createHash.py
+```
 
 =========================================================================================================
 
@@ -86,8 +89,10 @@ A small utility that counts how often specific words appear in a text file.
 3. The tool reads the file and counts each match
 
 ## Usage
-terminal:
+
+```bash
 python3 counting.py
+```
 
 =========================================================================================================
 
@@ -113,9 +118,11 @@ A multi-purpose terminal toolkit for networking, security, and fun — written e
 | 6 | Arrow Prediction Game | Guess where the arrow points next |
 
 ## Usage
-terminal:
+
+```bash
 pip install requests
 python3 linuxPUFFY.py
+```
 
 ## Disclaimer
 For **educational and authorized testing only**.
@@ -138,9 +145,6 @@ A terminal game that challenges you to remember a sequence of random words.
 3. The words disappear
 4. Type them back in the **exact same order**
 
-## Usage
-terminal:
-python3 memoryTest.py
 
 ## Difficulty
 | Level | Words |
@@ -149,6 +153,14 @@ python3 memoryTest.py
 | Medium |   5   |
 | Hard    |  6   |
 | Hardcore | 9   |
+
+
+## Usage
+
+```bash
+pip install requests
+python3 memoryTest.py
+```
 
 =========================================================================================================
 
@@ -170,3 +182,9 @@ Everything lives in your home directory
 ## ⚠️ Name Notice
 
 This project is a personal learning project and is **not affiliated with** any existing software or company named "Passman". The name is a shorthand for "Password Manager" and is not intended to infringe on any trademark. If you own a "Passman" trademark and have concerns, contact me and I'll rename it.
+
+## Usage
+
+```bash
+python3 passman.py
+```
