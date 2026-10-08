@@ -22,7 +22,7 @@ SHA-256 is a cryptographic hash function that turns any input into a **fixed 64-
 ## Usage
 
 ```bash
-python3 createHash.py
+python3 SHA-256Hasher.py
 ```
 
 =========================================================================================================
